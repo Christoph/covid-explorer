@@ -1,0 +1,241 @@
+<template>
+  <!-- Cases:
+  <span repeat.for="i of cases">
+    <i class="fas fa-male"></i>
+  </span>
+  <br>
+  Critical: <i class="fas fa-procedures"></i>
+  <br>
+  Quarantined: <i class="fal fa-door-closed"></i>
+  <br>
+  Infections through Work: <i class="fad fa-briefcase"></i>
+  <br>
+  Infections through Family:
+  <br>
+  Infections through Random: <i class=" fad fa-dice"></i>
+  <br> -->
+
+  <h1>IDEA 1 - How likely is your family affected</h1>
+  Reduction of Social Contacts by ${rangeValue}%
+  <md-range value.bind="rangeValue" min="10" max="75" step="5" change.delegate="onChange($event)"></md-range>
+
+  Probability of one Infection within your Family: <i class="fas fa-female"></i><i class="fas fa-male"></i><i
+    class="fas fa-child" data-fa-transform="shrink-4 down-2"></i><i class="fas fa-child"
+    data-fa-transform="shrink-4 down-2 left-2"></i>
+  and Closest Friends <i class="fas fa-male"></i><i class="fas fa-female"></i><i class="fas fa-female"></i><i
+    class="fas fa-male"></i><i class="fas fa-female"></i>
+  : ${compute_Risk(activeSim.may_infected)}%
+  <br>
+
+  <h1>IDEA 2 - Intensivbetten</h1>
+  Reduction of Social Contacts by ${rangeValue}%
+  <md-range value.bind="rangeValue" min="10" max="75" step="5" change.delegate="onChange($event)"></md-range>
+  Krankenhausbetten in Österreich: ${hospital_beds}
+  Freie Betten nach Abzug der Normalauslastung: ${available_beds}
+  Einwohner Wien: 1,910,497
+  <br>
+  <i class="fas fa-male"></i>: ${person_factor} Menschen
+  <br>
+  <i class="fas fa-procedures"></i>: ${hospital_factor} Intensiv Betten (
+  <span style="color: Tomato">
+    <i class="fas fa-procedures"></i> Fehlende Betten,
+  </span>
+  <span style="color: BLack">
+    <i class="fas fa-procedures"></i> Belegte Betten,
+  </span>
+  <span>
+    <i class="fal fa-procedures"></i> Freie Betten
+  </span>
+  ) <br>
+
+  <div class="row">
+    <div class="col m4">
+      <h3>März</h3>
+      <span repeat.for="i of computeMissingBeds(activeSim.march_critical, activeSim.march_hospital)"
+        style="color: Tomato">
+        <i class="fas fa-procedures"></i>
+      </span>
+      <span repeat.for="i of computeUsedBeds(activeSim.march_critical, activeSim.march_hospital)" style="color: BLack">
+        <i class="fas fa-procedures"></i>
+      </span>
+      <span repeat.for="i of computeFreeBeds(activeSim.march_critical, activeSim.march_hospital)">
+        <i class="fal fa-procedures"></i>
+      </span>
+
+    </div>
+    <div class="col m4">
+      <h3>April</h3>
+      <span repeat.for="i of computeMissingBeds(activeSim.april_critical, activeSim.april_hospital)"
+        style="color: Tomato">
+        <i class="fas fa-procedures"></i>
+      </span>
+      <span repeat.for="i of computeUsedBeds(activeSim.april_critical, activeSim.april_hospital)" style="color: BLack">
+        <i class="fas fa-procedures"></i>
+      </span>
+      <span repeat.for="i of computeFreeBeds(activeSim.april_critical, activeSim.april_hospital)">
+        <i class="fal fa-procedures"></i>
+      </span>
+    </div>
+    <div class="col m4">
+      <h3>Mai</h3>
+      <span repeat.for="i of computeMissingBeds(activeSim.may_critical, activeSim.may_hospital)" style="color: Tomato">
+        <i class="fas fa-procedures"></i>
+      </span>
+      <span repeat.for="i of computeUsedBeds(activeSim.may_critical, activeSim.may_hospital)" style="color: BLack">
+        <i class="fas fa-procedures"></i>
+      </span>
+      <span repeat.for="i of computeFreeBeds(activeSim.may_critical, activeSim.may_hospital)">
+        <i class="fal fa-procedures"></i>
+      </span>
+    </div>
+  </div>
+
+  <h1>IDEA 3 - Relative Rates</h1>
+  Reduction of Social Contacts by ${rangeValue}%
+  <md-range value.bind="rangeValue" min="10" max="75" step="5" change.delegate="onChange($event)"></md-range>
+  <i class="fas fa-male"></i>: ${person_factor} Menschen,
+  <i class="fas fa-procedures"></i>: ${person_factor / 2} Intensiv Betten
+  <div class="row">
+    <div class="col m4">
+      <div class="row">
+        <div class="col s4">
+          <h3>März</h3>
+        </div>
+        <div class="col s8">
+          <span style="color: Tomato">
+            <i class="fas fa-male"></i> Kritische Patienten ohne Bett: ${activeSim.march_critical}
+          </span>
+          <br>
+          <span style="color: Tomato">
+            <i class="fas fa-procedures"></i> Belegte Intensiv Betten: ${computeCoveredNumber(activeSim.march_critical,
+            activeSim.march_hospital)}
+          </span>
+          <br>
+          <span style="color: Orange">
+            <i class="fas fa-male"></i> Infizierte Patienten: ${activeSim.march_infected - activeSim.march_critical}
+          </span>
+          <br>
+          <span>
+            <i class="fal fa-male"></i> Nicht Betroffene Menschen: ${people - activeSim.march_infected -
+            activeSim.march_recovered}
+          </span>
+          <br>
+          <span style="color: Green">
+            <i class="fas fa-male"></i>
+            Erholte Menschen: ${activeSim.march_recovered}
+          </span>
+        </div>
+      </div>
+      <span repeat.for="i of computeCritical(activeSim.march_critical)" style="color: Tomato">
+        <i class="fas fa-male"></i>
+      </span>
+      <span repeat.for="i of computeCovered(activeSim.march_critical, activeSim.march_hospital)" style="color: Tomato">
+        <i class="fas fa-procedures"></i>
+      </span>
+      <span repeat.for="i of computeInfected(activeSim.march_infected, activeSim.march_critical)" style="color: Orange">
+        <i class="fas fa-male"></i>
+      </span>
+      <span repeat.for="i of computeRecovered(activeSim.march_recovered)" style="color: Green">
+        <i class="fas fa-male"></i>
+      </span>
+      <span repeat.for="i of computeHealthy(activeSim.march_infected, activeSim.march_recovered)">
+        <i class="fal fa-male"></i>
+      </span>
+    </div>
+    <div class="col m4">
+      <div class="row">
+        <div class="col s4">
+          <h3>April</h3>
+        </div>
+        <div class="col s8">
+          <span style="color: Tomato">
+            <i class="fas fa-male"></i> Kritische Patienten ohne Bett: ${activeSim.april_critical}
+          </span>
+          <br>
+          <span style="color: Tomato">
+            <i class="fas fa-procedures"></i> Belegte Intensiv Betten: ${computeCoveredNumber(activeSim.april_critical,
+            activeSim.april_hospital)}
+          </span>
+          <br>
+          <span style="color: Orange">
+            <i class="fas fa-male"></i> Infizierte Patienten: ${activeSim.april_infected - activeSim.april_critical}
+          </span>
+          <br>
+          <span>
+            <i class="fal fa-male"></i> Nicht Betroffene Menschen: ${people - activeSim.april_infected -
+            activeSim.april_recovered}
+          </span>
+          <br>
+          <span style="color: Green">
+            <i class="fas fa-male"></i>
+            Erholte Menschen: ${activeSim.april_recovered}
+          </span>
+        </div>
+      </div>
+      <span repeat.for="i of computeCritical(activeSim.april_critical)" style="color: Tomato">
+        <i class="fas fa-male"></i>
+      </span>
+      <span repeat.for="i of computeCovered(activeSim.april_critical, activeSim.april_hospital)" style="color: Tomato">
+        <i class="fas fa-procedures"></i>
+      </span>
+      <span repeat.for="i of computeInfected(activeSim.april_infected, activeSim.april_critical)" style="color: Orange">
+        <i class="fas fa-male"></i>
+      </span>
+      <span repeat.for="i of computeRecovered(activeSim.april_recovered)" style="color: Green">
+        <i class="fas fa-male"></i>
+      </span>
+      <span repeat.for="i of computeHealthy(activeSim.april_infected, activeSim.april_recovered)">
+        <i class="fal fa-male"></i>
+      </span>
+
+    </div>
+    <div class="col m4">
+      <div class="row">
+        <div class="col s4">
+          <h3>May</h3>
+        </div>
+        <div class="col s8">
+          <span style="color: Tomato">
+            <i class="fas fa-male"></i> Kritische Patienten ohne Bett: ${activeSim.may_critical}
+          </span>
+          <br>
+          <span style="color: Tomato">
+            <i class="fas fa-procedures"></i> Belegte Intensiv Betten: ${computeCoveredNumber(activeSim.may_critical,
+            activeSim.may_hospital)}
+          </span>
+          <br>
+          <span style="color: Orange">
+            <i class="fas fa-male"></i> Infizierte Patienten: ${activeSim.may_infected - activeSim.may_critical}
+          </span>
+          <br>
+          <span>
+            <i class="fal fa-male"></i> Nicht Betroffene Menschen: ${people - activeSim.may_infected -
+            activeSim.may_recovered}
+          </span>
+          <br>
+          <span style="color: Green">
+            <i class="fas fa-male"></i>
+            Erholte Menschen: ${activeSim.may_recovered}
+          </span>
+        </div>
+      </div>
+      <span repeat.for="i of computeCritical(activeSim.may_critical)" style="color: Tomato">
+        <i class="fas fa-male"></i>
+      </span>
+      <span repeat.for="i of computeCovered(activeSim.may_critical, activeSim.may_hospital)" style="color: Tomato">
+        <i class="fas fa-procedures"></i>
+      </span>
+      <span repeat.for="i of computeInfected(activeSim.may_infected, activeSim.may_critical)" style="color: Orange">
+        <i class="fas fa-male"></i>
+      </span>
+      <span repeat.for="i of computeRecovered(activeSim.may_recovered)" style="color: Green">
+        <i class="fas fa-male"></i>
+      </span>
+      <span repeat.for="i of computeHealthy(activeSim.may_infected, activeSim.may_recovered)">
+        <i class="fal fa-male"></i>
+      </span>
+
+    </div>
+  </div>
+
+</template>
