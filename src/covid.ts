@@ -1,8 +1,6 @@
 export class covid {
   // https://www.sozialministerium.at/Informationen-zum-Coronavirus/Coronavirus---Haeufig-gestellte-Fragen/Coronavirus---H%C3%A4ufig-gestellte-Fragen---Ma%C3%9Fnahmen-in-Oesterreich.html
-  hospital_beds = 2547
-  average_usage_of_beds = 0.82
-  available_beds = Math.round(this.hospital_beds * this.average_usage_of_beds)
+  available_beds = 2547
 
   tests_per_week = 23000
   tests_month = this.tests_per_week * 4
@@ -107,7 +105,6 @@ export class covid {
     this.activeSim = this.sim[this.rangeValue]
   }
   onChangeBeds() {
-    this.available_beds = Math.round(this.hospital_beds * this.average_usage_of_beds)
     this.activeSim = this.sim["30"]
     this.activeSim = this.sim[this.rangeValue]
   }
