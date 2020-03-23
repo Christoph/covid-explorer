@@ -58,8 +58,12 @@ export class covid {
   person_factor = 2000
   person_symbols = Math.ceil(this.people / this.person_factor)
 
-  computeCritical(critical) {
-    return Math.ceil(critical / this.person_factor)
+  computeCritical(critical, hospital) {
+    return Math.ceil(Math.max(0, critical + hospital - this.available_beds) / this.person_factor)
+  }
+
+  computeCriticalNumber(critical, hospital) {
+    return Math.max(0, critical + hospital - this.available_beds)
   }
 
   computeCovered(critical, hospital) {
@@ -70,6 +74,14 @@ export class covid {
   computeCoveredNumber(critical, hospital) {
     if (critical + hospital > this.available_beds) return this.available_beds
     else return critical + hospital
+  }
+
+  computeFree(critical, hospital) {
+    return Math.ceil(Math.max(0, this.available_beds - critical - hospital) / (this.person_factor / 2))
+  }
+
+  computeFreeNumber(critical, hospital) {
+    return Math.max(0, this.available_beds - critical - hospital)
   }
 
   computeInfected(infected, critical) {
@@ -92,6 +104,11 @@ export class covid {
   percent = 0;
 
   onChange() {
+    this.activeSim = this.sim[this.rangeValue]
+  }
+  onChangeBeds() {
+    this.available_beds = Math.round(this.hospital_beds * this.average_usage_of_beds)
+    this.activeSim = this.sim["30"]
     this.activeSim = this.sim[this.rangeValue]
   }
 }
