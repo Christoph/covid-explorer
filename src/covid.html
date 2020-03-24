@@ -31,66 +31,85 @@
   Reduction of Social Contacts by ${rangeValue}%
   <md-range value.bind="rangeValue" min="10" max="75" step="5" change.delegate="onChange($event)"></md-range>
   <br>
-  <i class="fas fa-procedures"></i>: ${hospital_factor} Intensiv Betten (
-  <span style="color: Tomato">
-    <i class="fas fa-procedures"></i> Fehlende Betten,
-  </span>
-  <span style="color: BLack">
-    <i class="fas fa-procedures"></i> Belegte Betten,
-  </span>
-  <span>
-    <i class="fal fa-procedures"></i> Freie Betten
-  </span>
-  ) <br>
 
   <div class="row">
-    <div class="col m4">
-      <h3>März</h3>
-      <div>
-        <div class="container" style="display: inline-block; width: 50px;">
+    <div class="row">
+      <div class="col s1">
+        <span>März</span>
+      </div>
+      <div class="col s11">
+        <div class="container">
           <span repeat.for="i of computeMissingBeds('march')" style="color: Tomato; vertical-align: bottom">
             <i class="fas fa-procedures"></i>
           </span>
         </div>
-        <div class="container" style="display: inline-block; width: 50px;">
+        <div class="container">
           <span repeat.for="i of computeUsedBeds('march')" style="color: BLack">
             <i class="fas fa-procedures"></i>
           </span>
         </div>
-        <div class="container" style="display: inline-block; width: 50px;">
+        <div class="container">
           <span repeat.for="i of computeFreeBeds('march')">
             <i class="fal fa-procedures"></i>
           </span>
-
         </div>
       </div>
-
     </div>
-  </div>
-  <div class="col m4">
-    <h3>April</h3>
-    <span repeat.for="i of computeMissingBeds('april')" style="color: Tomato">
-      <i class="fas fa-procedures"></i>
+    <div class="row">
+      <div class="col s1">
+        <span>April</span>
+      </div>
+      <div class="col s11">
+        <div class="container">
+          <span repeat.for="i of computeMissingBeds('april')" style="color: Tomato">
+            <i class="fas fa-procedures"></i>
+          </span>
+        </div>
+        <div class="container">
+          <span repeat.for="i of computeUsedBeds('april')" style="color: BLack">
+            <i class="fas fa-procedures"></i>
+          </span>
+        </div>
+        <div class="container">
+          <span repeat.for="i of computeFreeBeds('april')">
+            <i class="fal fa-procedures"></i>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col s1">
+        <span>May</span>
+      </div>
+      <div class="col s11">
+        <div class="container">
+          <span repeat.for="i of computeUsedBeds('may')" style="color: BLack">
+            <i class="fas fa-procedures"></i>
+          </span>
+        </div>
+        <div class="container">
+          <span repeat.for="i of computeMissingBeds('may')" style="color: Tomato">
+            <i class="fas fa-procedures"></i>
+          </span>
+        </div>
+        <div class="container">
+          <span repeat.for="i of computeFreeBeds('may')">
+            <i class="fal fa-procedures"></i>
+          </span>
+        </div>
+      </div>
+    </div>
+    <hr>
+    <i class="fas fa-procedures"></i>: ${hospital_factor} Intensiv Betten (
+    <span style="color: Tomato">
+      <i class="fas fa-procedures"></i> Fehlende Betten,
     </span>
-    <span repeat.for="i of computeUsedBeds('april')" style="color: BLack">
-      <i class="fas fa-procedures"></i>
+    <span style="color: BLack">
+      <i class="fas fa-procedures"></i> Belegte Betten,
     </span>
-    <span repeat.for="i of computeFreeBeds('april')">
-      <i class="fal fa-procedures"></i>
+    <span>
+      <i class="fal fa-procedures"></i> Freie Betten
     </span>
-  </div>
-  <div class="col m4">
-    <h3>Mai</h3>
-    <span repeat.for="i of computeMissingBeds('may')" style="color: Tomato">
-      <i class="fas fa-procedures"></i>
-    </span>
-    <span repeat.for="i of computeUsedBeds('may')" style="color: BLack">
-      <i class="fas fa-procedures"></i>
-    </span>
-    <span repeat.for="i of computeFreeBeds('may')">
-      <i class="fal fa-procedures"></i>
-    </span>
-  </div>
   </div>
 
   <h1>IDEA 3 - Relative Rates</h1>

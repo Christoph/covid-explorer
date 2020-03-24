@@ -1,7 +1,15 @@
 .container {
-  height: 60vh;
+  /* display: inline-block; */
+  width: 100% !important;
   margin: 0px !important;
   padding: 0px !important;
+}
+
+.group {
+  display: inline-block;
+  width: 100% !important;
+  height: 60vh;
+  overflow: auto;
 }
 
 .container>* {
