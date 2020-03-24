@@ -1,3 +1,5 @@
+import { computedFrom } from 'aurelia-framework';
+
 export class covid {
   // https://www.sozialministerium.at/Informationen-zum-Coronavirus/Coronavirus---Haeufig-gestellte-Fragen/Coronavirus---H%C3%A4ufig-gestellte-Fragen---Ma%C3%9Fnahmen-in-Oesterreich.html
   available_beds = 2547
@@ -59,57 +61,57 @@ export class covid {
 
   activeSim = this.sim["10"]
 
-  computeMissingBeds(month) {
+  computeMissingBeds(month, activeSim) {
     return Math.round(Math.max(0, this.activeSim[month].critical + this.activeSim[month].hospital - this.available_beds) / this.hospital_factor)
   }
 
-  computeUsedBeds(month) {
+  computeUsedBeds(month, activeSim) {
     if (this.activeSim[month].critical + this.activeSim[month].hospital > this.available_beds) return Math.round(this.available_beds / this.hospital_factor)
     else return Math.round((this.activeSim[month].critical + this.activeSim[month].hospital) / this.hospital_factor)
   }
 
-  computeFreeBeds(month) {
+  computeFreeBeds(month, activeSim) {
     return Math.round(Math.max(0, this.available_beds - this.activeSim[month].critical - this.activeSim[month].hospital) / this.hospital_factor)
   }
 
 
-  computeCritical(month) {
+  computeCritical(month, activeSim) {
     return Math.ceil(Math.max(0, this.activeSim[month].critical + this.activeSim[month].hospital - this.available_beds) / this.person_factor)
   }
 
-  computeCriticalNumber(month) {
+  computeCriticalNumber(month, activeSim) {
     return Math.max(0, this.activeSim[month].critical + this.activeSim[month].hospital - this.available_beds)
   }
 
-  computeCovered(month) {
+  computeCovered(month, activeSim) {
     if (this.activeSim[month].critical + this.activeSim[month].hospital > this.available_beds) return Math.ceil(this.available_beds / (this.person_factor / 2))
     else return Math.ceil((this.activeSim[month].critical + this.activeSim[month].hospital) / (this.person_factor / 2))
   }
 
-  computeCoveredNumber(month) {
+  computeCoveredNumber(month, activeSim) {
     if (this.activeSim[month].critical + this.activeSim[month].hospital > this.available_beds) return this.available_beds
     else return this.activeSim[month].critical + this.activeSim[month].hospital
   }
 
-  computeFree(month) {
+  computeFree(month, activeSim) {
     return Math.ceil(Math.max(0, this.available_beds - this.activeSim[month].critical - this.activeSim[month].hospital) / (this.person_factor / 2))
   }
 
-  computeFreeNumber(month) {
+  computeFreeNumber(month, activeSim) {
     return Math.max(0, this.available_beds - this.activeSim[month].critical - this.activeSim[month].hospital)
   }
 
-  computeInfected(month) {
+  computeInfected(month, activeSim) {
     return Math.ceil((this.activeSim[month].infected - this.activeSim[month].critical) / this.person_factor)
   }
-  computeHealthy(month) {
+  computeHealthy(month, activeSim) {
     return Math.ceil((this.people - this.activeSim[month].infected - this.activeSim[month].recovered) / this.person_factor)
   }
-  computeRecovered(month) {
+  computeRecovered(month, activeSim) {
     return Math.ceil(this.activeSim[month].recovered / this.person_factor)
   }
 
-  compute_Risk(month) {
+  compute_Risk(month, activeSim) {
     return 9 * this.activeSim[month].infected / this.people
   }
 
@@ -117,7 +119,7 @@ export class covid {
     this.activeSim = this.sim[this.rangeValue]
   }
   onChangeBeds() {
-    this.activeSim = this.sim["30"]
+    this.activeSim = null
     this.activeSim = this.sim[this.rangeValue]
   }
 }
