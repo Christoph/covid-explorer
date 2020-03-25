@@ -58,8 +58,8 @@
       <span style="display: inline-block;">
         Reduktion der Sozialen Kontakte um:
       </span>
-      <md-radio repeat.for="red of reductions" name="red" model.bind="red" checked.bind="selectedRed">
-        ${red}%</md-radio>
+      <md-radio repeat.for="[reduction, data] of sim" name="reduction" model.bind="data" checked.bind="activeSim">
+        ${reduction}%</md-radio>
     </div>
   </div>
 
@@ -110,6 +110,7 @@
 
   </div>
 
+  <!--
   <h1>IDEA 3 - Relative Rates</h1>
   <div class="row">
     <div class="row">
@@ -277,6 +278,6 @@
         <i class="fal fa-male"></i>
       </span>
     </div>
-  </div>
+  </div> -->
 
 </template>

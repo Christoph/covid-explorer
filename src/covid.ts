@@ -16,7 +16,7 @@ export class covid {
   rangeValue = 10;
   percent = 0;
 
-  sim = {};
+  sim = new Map();
   reductions;
   selectedRed;
   activeSim;
@@ -62,12 +62,10 @@ export class covid {
       recovered: 1560
     });
 
-    this.sim["10"] = t10
-    this.sim["30"] = t30
+    this.sim.set("10", t10)
+    this.sim.set("30", t30)
 
-    this.reductions = Object.keys(this.sim)
-    this.selectedRed = this.reductions[0];
-    this.activeSim = this.sim[this.selectedRed]
+    this.activeSim = this.sim.get("10")
   }
 
   // sim = {
@@ -177,10 +175,11 @@ export class covid {
   }
 
   onChange() {
-    this.activeSim = this.sim[this.rangeValue]
+    this.activeSim = this.activeSim
   }
   onChangeBeds() {
+    let temp = this.activeSim
     this.activeSim = null
-    this.activeSim = this.sim[this.rangeValue]
+    this.activeSim = temp
   }
 }
