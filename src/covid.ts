@@ -5,7 +5,7 @@ export class covid {
   available_beds = 2547
   people = 1910497
 
-  hospital_factor = 100
+  hospital_factor = 1000
   person_factor = 2000
 
   person_symbols = Math.ceil(this.people / this.person_factor)
@@ -59,10 +59,20 @@ export class covid {
     }
   }
 
+  reductions = Object.keys(this.sim)
+  selectedRed = this.reductions[0];
   activeSim = this.sim["10"]
 
+  death_rate = 3
+  death_factor = 100
+  computeDeathRate(month, activeSim) {
+    let missing_beds = Math.max(0, this.activeSim[month].critical + this.activeSim[month].hospital - this.available_beds)
+
+    return Math.ceil(missing_beds * (this.death_rate / 100) / this.death_factor)
+  }
+
   computeMissingBeds(month, activeSim) {
-    return Math.round(Math.max(0, this.activeSim[month].critical + this.activeSim[month].hospital - this.available_beds) / this.hospital_factor)
+    return Math.ceil(Math.max(0, this.activeSim[month].critical + this.activeSim[month].hospital - this.available_beds) / this.hospital_factor)
   }
 
   computeUsedBeds(month, activeSim) {
@@ -71,7 +81,7 @@ export class covid {
   }
 
   computeFreeBeds(month, activeSim) {
-    return Math.round(Math.max(0, this.available_beds - this.activeSim[month].critical - this.activeSim[month].hospital) / this.hospital_factor)
+    return Math.ceil(Math.max(0, this.available_beds - this.activeSim[month].critical - this.activeSim[month].hospital) / this.hospital_factor)
   }
 
 

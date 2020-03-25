@@ -26,109 +26,145 @@
     class="fas fa-male"></i><i class="fas fa-female"></i>
   : ${compute_Risk(activeSim.may_infected)}%
   <br> -->
-
   <h1>Belastung des Gesundheitssystems</h1>
-  Reduction of Social Contacts by ${rangeValue}%
-  <md-range value.bind="rangeValue" min="10" max="75" step="5" change.delegate="onChange($event)"></md-range>
-  <br>
+  <div class="row">
+    <div class="col s6">
+      <span style="display: inline-block;">
+        Reduktion der Sozialen Kontakte um:
+      </span>
+      <md-radio repeat.for="red of reductions" name="red" model.bind="red" checked.bind="selectedRed">
+        ${red}%</md-radio>
+
+    </div>
+    <div class="col s6">
+      <div class="row">
+        <div style="display: inline-block;">
+          <span>Anzahl der Verfügbaren Betten:</span>
+          <div style="display: inline-block; width: 50px">
+            <md-input value.bind="available_beds" disabled.bind="disabledValue" inline="true">
+            </md-input>
+          </div>
+        </div>
+        <div style="display: inline-block">
+          <md-range value.bind="available_beds" min="0" max="10000" step="1" change.delegate="onChangeBeds($event)">
+          </md-range>
+        </div>
+      </div>
+      <div class="row">
+        <div style="display: inline-block">
+          Todesrate von Patienten ohne Intensivbett (Prozent):
+        </div>
+        <div style="display: inline-block">
+          <div style="width: 50px">
+            <md-input type="number" step="1" min="0" max="100" validate="true" validate-error="invalid number"
+              value.bind="death_rate" change.delegate="onChangeBeds($event)"></md-input>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 
   <div class="row">
-    <div class="row">
-      <div class="col s1">
-        <span>März</span>
+    <div class="col s4">
+      <div class="row">
+        <div class="col s1">
+          <span>März</span>
+        </div>
+        <div class="col s11">
+          <div class="container">
+            <span repeat.for="i of computeFreeBeds('march', activeSim)">
+              <i class="fal fa-procedures"></i>
+            </span>
+            <span repeat.for="i of computeUsedBeds('march', activeSim)" style="color: Black">
+              <i class="fas fa-procedures"></i>
+            </span>
+          </div>
+          <div class="container">
+            <span repeat.for="i of computeMissingBeds('march', activeSim)"
+              style="color: Tomato; vertical-align: bottom">
+              <i class="fas fa-procedures"></i>
+            </span>
+          </div>
+          <div class="container">
+            <span repeat.for="i of computeDeathRate('march', activeSim)" style="color: Tomato">
+              <i class="fas fa-coffin-cross"></i>
+            </span>
+          </div>
+        </div>
       </div>
-      <div class="col s11">
-        <div class="container">
-          <span repeat.for="i of computeMissingBeds('march', activeSim)" style="color: Tomato; vertical-align: bottom">
-            <i class="fas fa-procedures"></i>
-          </span>
+      <div class="row">
+        <div class="col s1">
+          <span>April</span>
         </div>
-        <div class="container">
-          <span repeat.for="i of computeUsedBeds('march', activeSim)" style="color: BLack">
-            <i class="fas fa-procedures"></i>
-          </span>
-        </div>
-        <div class="container">
-          <span repeat.for="i of computeFreeBeds('march', activeSim)">
-            <i class="fal fa-procedures"></i>
-          </span>
+        <div class="col s11">
+          <div class="container">
+            <span repeat.for="i of computeFreeBeds('april', activeSim)">
+              <i class="fal fa-procedures"></i>
+            </span>
+            <span repeat.for="i of computeUsedBeds('april', activeSim)" style="color: Black">
+              <i class="fas fa-procedures"></i>
+            </span>
+          </div>
+          <div class="container">
+            <span repeat.for="i of computeMissingBeds('april', activeSim)" style="color: Tomato">
+              <i class="fas fa-procedures"></i>
+            </span>
+          </div>
+          <div class="container">
+            <span repeat.for="i of computeDeathRate('april', activeSim)" style="color: Tomato">
+              <i class="fas fa-coffin-cross"></i>
+            </span>
+          </div>
         </div>
       </div>
+      <div class="row">
+        <div class="col s1">
+          <span>Mai</span>
+        </div>
+        <div class="col s11">
+          <div class="container">
+            <span repeat.for="i of computeFreeBeds('may', activeSim)">
+              <i class="fal fa-procedures"></i>
+            </span>
+            <span repeat.for="i of computeUsedBeds('may', activeSim)" style="color: BLack">
+              <i class="fas fa-procedures"></i>
+            </span>
+          </div>
+          <div class="container">
+            <span repeat.for="i of computeMissingBeds('may', activeSim)" style="color: Tomato">
+              <i class="fas fa-procedures"></i>
+            </span>
+          </div>
+          <div class="container">
+            <span repeat.for="i of computeDeathRate('may', activeSim)" style="color: Tomato">
+              <i class="fas fa-coffin-cross"></i>
+            </span>
+          </div>
+        </div>
+      </div>
+      <span style="color: Tomato">
+        <i class="fas fa-coffin-cross"></i>: ${death_factor} Potentielle Tote bei Patienten ohne Intensivbett
+      </span>
+      <br>
+      <i class="fas fa-procedures"></i>: ${hospital_factor} Intensiv Betten (
+      <span style="color: Tomato">
+        <i class="fas fa-procedures"></i> Fehlende Betten,
+      </span>
+      <span style="color: BLack">
+        <i class="fas fa-procedures"></i> Belegte Betten,
+      </span>
+      <span>
+        <i class="fal fa-procedures"></i> Freie Betten
+      </span>
     </div>
-    <div class="row">
-      <div class="col s1">
-        <span>April</span>
-      </div>
-      <div class="col s11">
-        <div class="container">
-          <span repeat.for="i of computeMissingBeds('april', activeSim)" style="color: Tomato">
-            <i class="fas fa-procedures"></i>
-          </span>
-        </div>
-        <div class="container">
-          <span repeat.for="i of computeUsedBeds('april', activeSim)" style="color: BLack">
-            <i class="fas fa-procedures"></i>
-          </span>
-        </div>
-        <div class="container">
-          <span repeat.for="i of computeFreeBeds('april', activeSim)">
-            <i class="fal fa-procedures"></i>
-          </span>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col s1">
-        <span>May</span>
-      </div>
-      <div class="col s11">
-        <div class="container">
-          <span repeat.for="i of computeUsedBeds('may', activeSim)" style="color: BLack">
-            <i class="fas fa-procedures"></i>
-          </span>
-        </div>
-        <div class="container">
-          <span repeat.for="i of computeMissingBeds('may', activeSim)" style="color: Tomato">
-            <i class="fas fa-procedures"></i>
-          </span>
-        </div>
-        <div class="container">
-          <span repeat.for="i of computeFreeBeds('may', activeSim)">
-            <i class="fal fa-procedures"></i>
-          </span>
-        </div>
-      </div>
-    </div>
-    <hr>
-    <i class="fas fa-procedures"></i>: ${hospital_factor} Intensiv Betten (
-    <span style="color: Tomato">
-      <i class="fas fa-procedures"></i> Fehlende Betten,
-    </span>
-    <span style="color: BLack">
-      <i class="fas fa-procedures"></i> Belegte Betten,
-    </span>
-    <span>
-      <i class="fal fa-procedures"></i> Freie Betten
-    </span>
+  </div>
+  <div class="col s6">
+
   </div>
 
   <h1>IDEA 3 - Relative Rates</h1>
   <div class="row">
-    <div class="row">
-      <div class="col s6">
-        <span style="display: inline-block;">
-          Reduktion der Sozialen Kontakte um <span style="font-weight: 800">${rangeValue}%</span>
-        </span>
-        <md-range value.bind="rangeValue" min="10" max="75" step="5" change.delegate="onChange($event)"></md-range>
-      </div>
-      <div class="col s6">
-        <md-input type="number" step="1" label="Anzahl der Verfügbaren Intensiv Betten" validate="true"
-          change.delegate="onChangeBeds()" validate-error="invalid number" value.bind="available_beds"></md-input>
-      </div>
-      <div class="col s2">
-
-      </div>
-    </div>
     <div class="row">
       <div class="col s12">
         <i class="fas fa-male"></i>: ${person_factor} Menschen,
