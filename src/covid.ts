@@ -24,22 +24,28 @@ export class covid {
   constructor() {
     let t10 = new Map();
     t10.set('März', {
-      infected: 30184,
-      critical: 521,
-      hospital: 1924,
+      infected: 28435,
+      critical: 484,
+      hospital: 1939,
       recovered: 537,
     });
     t10.set('April', {
-      infected: 134520,
-      critical: 2608,
-      hospital: 9743,
+      infected: 95934,
+      critical: 2173,
+      hospital: 7453,
       recovered: 3727,
     });
     t10.set('Mai', {
-      infected: 385406,
-      critical: 7321,
-      hospital: 28475,
+      infected: 232218,
+      critical: 4608,
+      hospital: 17194,
       recovered: 8844
+    });
+    t10.set('Juni', {
+      infected: 498970,
+      critical: 9145,
+      hospital: 37340,
+      recovered: 19844
     });
 
     let t30 = new Map();
@@ -61,9 +67,42 @@ export class covid {
       hospital: 1930,
       recovered: 1560
     });
+    t30.set('Juni', {
+      infected: 13652,
+      critical: 268,
+      hospital: 1182,
+      recovered: 820
+    });
+
+    let t60 = new Map();
+    t60.set('März', {
+      infected: 20862,
+      critical: 422,
+      hospital: 1620,
+      recovered: 543
+    });
+    t60.set('April', {
+      infected: 14166,
+      critical: 350,
+      hospital: 1154,
+      recovered: 1233,
+    });
+    t60.set('Mai', {
+      infected: 2907,
+      critical: 26,
+      hospital: 171,
+      recovered: 242
+    });
+    t60.set('Juni', {
+      infected: 143,
+      critical: 0,
+      hospital: 32,
+      recovered: 30
+    });
 
     this.sim.set("10", t10)
     this.sim.set("30", t30)
+    this.sim.set("60", t60)
 
     this.activeSim = this.sim.get("10")
   }
