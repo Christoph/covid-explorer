@@ -60,6 +60,36 @@
       </span>
       <md-radio repeat.for="[reduction, data] of sim" name="reduction" model.bind="data" checked.bind="activeSim">
         ${reduction}%</md-radio>
+      <br>
+      <span style="color: Tomato">
+        <i class="fas fa-coffin-cross"></i>: ${death_factor} Potentielle Tote bei Patienten ohne Intensivbett
+      </span>
+      <br>
+      <i class="fas fa-procedures"></i>: ${hospital_factor} Intensiv Betten (
+      <span style="color: Tomato">
+        <i class="fas fa-procedures"></i> Fehlend,
+      </span>
+      <span style="color: BLack">
+        <i class="fad fa-procedures"
+          style="--fa-secondary-opacity: 1.0; --fa-primary-color: Black; --fa-secondary-color: Tomato;"></i> Belegt,
+      </span>
+      <span>
+        <i class="fad fa-procedures"
+          style="--fa-secondary-opacity: 0; --fa-primary-color: Black; --fa-secondary-color: Tomato;"></i> Freie
+      </span>)
+      <br>
+      <span>
+        <i class="fal fa-male"></i> ${people_factor} Menschen (
+      </span>
+      <span style="color: Tomato">
+        <i class="fas fa-male"></i> Kritisch
+      </span>
+      <span style="color: Orange">
+        <i class="fas fa-male"></i> Infiziert
+      </span>
+      <span style="color: Green">
+        <i class="fas fa-male"></i> Erholt
+      </span>)
     </div>
   </div>
 
@@ -70,65 +100,45 @@
           <span style="font-size: larger; font-weight: 800">${month}</span>
         </div>
         <div class="col s3">
-          <div class="container">
-            <span repeat.for="i of computeFreeBeds(month, activeSim)">
-              <i class="fad fa-procedures"
-                style="--fa-secondary-opacity: 0; --fa-primary-color: Black; --fa-secondary-color: Tomato;"></i>
-            </span>
-            <span repeat.for="i of computeUsedBeds(month, activeSim)" style="color: Black">
-              <i class="fad fa-procedures"
-                style="--fa-secondary-opacity: 1.0; --fa-primary-color: Black; --fa-secondary-color: Tomato;"></i>
-            </span>
-          </div>
-          <div class="container">
-            <span repeat.for="i of computeMissingBeds(month, activeSim)" style="color: Tomato; vertical-align: bottom">
-              <i class="fas fa-procedures"></i>
-            </span>
-          </div>
-          <div class="container">
-            <span repeat.for="i of computeDeathRate(month, activeSim)" style="color: Tomato">
-              <i class="fas fa-coffin-cross"></i>
-            </span>
-          </div>
+          <span repeat.for="i of computeFreeBeds(month, activeSim)">
+            <i class="fad fa-procedures"
+              style="--fa-secondary-opacity: 0; --fa-primary-color: Black; --fa-secondary-color: Tomato;"></i>
+          </span>
+          <br if.bind="computeFreeBeds(month, activeSim)">
+          <span repeat.for="i of computeUsedBeds(month, activeSim)" style="color: Black">
+            <i class="fad fa-procedures"
+              style="--fa-secondary-opacity: 1.0; --fa-primary-color: Black; --fa-secondary-color: Tomato;"></i>
+          </span>
+          <br>
+          <span repeat.for="i of computeMissingBeds(month, activeSim)" style="color: Tomato; vertical-align: bottom">
+            <i class="fas fa-procedures"></i>
+          </span>
+          <br>
+          <span repeat.for="i of computeDeathRate(month, activeSim)" style="color: Tomato">
+            <i class="fas fa-coffin-cross"></i>
+          </span>
         </div>
         <div class="col s8">
-          <div class="container">
-            <span repeat.for="i of computeCritical(month, activeSim)" style="color: Tomato">
-              <i class="fas fa-male"></i>
-            </span>
-            <!-- <span repeat.for="i of computeCovered('März', activeSim)" style="color: Tomato">
+          <span repeat.for="i of computeCritical(month, activeSim)" style="color: Tomato">
+            <i class="fas fa-male"></i>
+          </span>
+          <!-- <span repeat.for="i of computeCovered('März', activeSim)" style="color: Tomato">
               <i class="fas fa-procedures"></i>
             </span>
             <span repeat.for="i of computeFree('März', activeSim)" style="color: Black">
               <i class="fas fa-procedures"></i>
             </span> -->
-            <span repeat.for="i of computeInfected(month, activeSim)" style="color: Orange">
-              <i class="fas fa-male"></i>
-            </span>
-            <span repeat.for="i of computeRecovered(month, activeSim)" style="color: Green">
-              <i class="fas fa-male"></i>
-            </span>
-            <span repeat.for="i of computeHealthy(month, activeSim)">
-              <i class="fal fa-male"></i>
-            </span>
-          </div>
+          <span repeat.for="i of computeInfected(month, activeSim)" style="color: Orange">
+            <i class="fas fa-male"></i>
+          </span>
+          <span repeat.for="i of computeRecovered(month, activeSim)" style="color: Green">
+            <i class="fas fa-male"></i>
+          </span>
+          <span repeat.for="i of computeHealthy(month, activeSim)">
+            <i class="fal fa-male"></i>
+          </span>
         </div>
       </div>
     </div>
-    <span style="color: Tomato">
-      <i class="fas fa-coffin-cross"></i>: ${death_factor} Potentielle Tote bei Patienten ohne Intensivbett
-    </span>
-    <br>
-    <i class="fas fa-procedures"></i>: ${hospital_factor} Intensiv Betten (
-    <span style="color: Tomato">
-      <i class="fas fa-procedures"></i> Fehlende Betten,
-    </span>
-    <span style="color: BLack">
-      <i class="fas fa-procedures"></i> Belegte Betten,
-    </span>
-    <span>
-      <i class="fal fa-procedures"></i> Freie Betten
-    </span>
-  </div>
   </div>
 </template>
