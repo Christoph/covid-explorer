@@ -5,7 +5,7 @@ export class covid {
   available_beds = 2547
   people = 1910497
 
-  hospital_factor = 1000
+  hospital_factor = 100
   person_factor = 5000
 
   person_symbols = Math.ceil(this.people / this.person_factor)
