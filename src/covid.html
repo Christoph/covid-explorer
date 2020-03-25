@@ -107,10 +107,13 @@
           </div>
           <div style="display: inline-block">
             <div style="width: 50px">
-              <md-input type="number" step="1" min="0" max="100" validate="true" validate-error="invalid number"
+              <md-input type="number" step="0.1" min="0" max="100" validate="true" validate-error="invalid number"
                 value.bind="death_rate" change.delegate="onChangeBeds($event)"></md-input>
             </div>
           </div>
+          <span style="color: grey; font-size: smaller">
+            2.6% ist die Todesrate des chinesischen Ausbruchs.
+          </span>
         </div>
       </div>
       <div class="col s6" style="margin-top: 20px">
