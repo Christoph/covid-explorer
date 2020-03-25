@@ -68,50 +68,6 @@ export class covid {
     this.activeSim = this.sim.get("10")
   }
 
-  // sim = {
-  //   "10": {
-  //     march: {
-  //       infected: 30184,
-  //       critical: 521,
-  //       hospital: 1924,
-  //       recovered: 537,
-  //     },
-  //     april: {
-  //       infected: 134520,
-  //       critical: 2608,
-  //       hospital: 9743,
-  //       recovered: 3727,
-  //     },
-  //     may: {
-  //       infected: 385406,
-  //       critical: 7321,
-  //       hospital: 28475,
-  //       recovered: 8844
-  //     }
-  //   },
-  //   "30": {
-  //     march: {
-  //       infected: 24328,
-  //       critical: 451,
-  //       hospital: 1533,
-  //       recovered: 539,
-  //     },
-  //     april: {
-  //       infected: 37637,
-  //       critical: 718,
-  //       hospital: 2866,
-  //       recovered: 2158,
-  //     },
-  //     may: {
-  //       infected: 27864,
-  //       critical: 385,
-  //       hospital: 1930,
-  //       recovered: 1560
-  //     }
-  //   }
-  // }
-
-
   death_rate = 3
   death_factor = 100
   computeDeathRate(month, activeSim) {
