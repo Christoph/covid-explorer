@@ -51,7 +51,7 @@
         </span>)
         <br>
         <span>
-          <i class="fal fa-male"></i> ${people_factor} Menschen (
+          <i class="fal fa-male"></i> ${person_factor} Menschen (
         </span>
         <span style="color: Tomato">
           <i class="fas fa-male"></i> Kritisch
@@ -92,8 +92,9 @@
           <div style="display: inline-block;">
             Anzahl der Verfügbaren Betten:
           </div>
-          <div style="display: inline-block; width: 50px">
-            <md-input value.bind="available_beds" disabled.bind="disabledValue" inline="true">
+          <div style="display: inline-block; width: 100px">
+            <md-input value.bind="available_beds" disabled.bind="disabledValue" inline="true" type="number"
+              label="2547 in AUT">
             </md-input>
           </div>
           <div style="display: inline-block; height: 50px">
