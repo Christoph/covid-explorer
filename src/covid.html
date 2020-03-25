@@ -26,117 +26,151 @@
     class="fas fa-male"></i><i class="fas fa-female"></i>
   : ${compute_Risk(activeSim.Mai_infected)}%
   <br> -->
-  <h1 style="margin-top: 5px; margin-bottom: 5px">Belastung des Gesundheitssystems</h1>
-  <div class="row">
-    <div class="col s6" style="height: 100px">
-      <div class="row" style="margin: 0px; height: 40px">
-        <div style="display: inline-block; height: 50px">
+  <div class="header">
+    <div class="row" style="margin: 0px; height: 55px">
+
+      <span class="title">Gesundheitsversorgung und
+        Social Distancing
+      </span>
+      <div style="float: right; font-size: smaller">
+        <span style="color: Tomato">
+          <i class="fas fa-coffin-cross"></i>: ${death_factor} Potentielle Tote bei Patienten ohne Intensivbett
+        </span>
+        <br>
+        <i class="fas fa-procedures"></i>: ${hospital_factor} Intensiv Betten (
+        <span style="color: Tomato">
+          <i class="fas fa-procedures"></i> Fehlend,
+        </span>
+        <span style="color: BLack">
+          <i class="fad fa-procedures"
+            style="--fa-secondary-opacity: 1.0; --fa-primary-color: Black; --fa-secondary-color: Tomato;"></i> Belegt,
+        </span>
+        <span>
+          <i class="fad fa-procedures"
+            style="--fa-secondary-opacity: 0; --fa-primary-color: Black; --fa-secondary-color: Tomato;"></i> Frei
+        </span>)
+        <br>
+        <span>
+          <i class="fal fa-male"></i> ${people_factor} Menschen (
+        </span>
+        <span style="color: Tomato">
+          <i class="fas fa-male"></i> Kritisch
+        </span>
+        <span style="color: Orange">
+          <i class="fas fa-male"></i> Infiziert
+        </span>
+        <span style="color: Green">
+          <i class="fas fa-male"></i> Erholt
+        </span>)
+      </div>
+    </div>
+    <div class="row">
+      <!-- <div>
+        <div style="display: inline-block;">
           Anzahl der Verfügbaren Betten:
         </div>
-        <div style="display: inline-block; width: 50px">
+        <div style="display: inline-block; height: 40px">
           <md-input value.bind="available_beds" disabled.bind="disabledValue" inline="true">
           </md-input>
         </div>
-        <div style="display: inline-block; height: 50px">
+        <div style="display: inline-block; height: 40px">
           <md-range value.bind="available_beds" min="0" max="10000" step="1" change.delegate="onChangeBeds($event)">
           </md-range>
         </div>
-      </div>
-      <div class="row" style="height: 40px">
-        <div style="display: inline-block">
-          Todesrate von Patienten ohne Intensivbett (Prozent):
+        <div style="display: inline-block; margin-top: 20px">
+
+          <span style="display: inline-block;">
+            Reduktion der Sozialen Kontakte um:
+          </span>
+          <br>
+          <md-radio repeat.for="[reduction, data] of sim" name="reduction" model.bind="data" checked.bind="activeSim">
+            ${reduction}%</md-radio>
         </div>
-        <div style="display: inline-block">
-          <div style="width: 50px">
-            <md-input type="number" step="1" min="0" max="100" validate="true" validate-error="invalid number"
-              value.bind="death_rate" change.delegate="onChangeBeds($event)"></md-input>
+      </div> -->
+      <div class="col s6" style="margin: 0px">
+        <div class="row" style="margin: 0px; height: 45px">
+          <div style="display: inline-block;">
+            Anzahl der Verfügbaren Betten:
+          </div>
+          <div style="display: inline-block; width: 50px">
+            <md-input value.bind="available_beds" disabled.bind="disabledValue" inline="true">
+            </md-input>
+          </div>
+          <div style="display: inline-block; height: 50px">
+            <md-range value.bind="available_beds" min="0" max="10000" step="1" change.delegate="onChangeBeds($event)">
+            </md-range>
+          </div>
+        </div>
+        <div class="row" style="margin: 0px; height: 40px">
+          <div style="display: inline-block;">
+            Todesrate von Patienten (Prozent):
+          </div>
+          <div style="display: inline-block">
+            <div style="width: 50px">
+              <md-input type="number" step="1" min="0" max="100" validate="true" validate-error="invalid number"
+                value.bind="death_rate" change.delegate="onChangeBeds($event)"></md-input>
+            </div>
           </div>
         </div>
       </div>
+      <div class="col s6" style="margin-top: 20px">
+        <span style="display: inline-block;">
+          Reduktion der Sozialen Kontakte um:
+        </span>
+        <br>
+        <md-radio repeat.for="[reduction, data] of sim" name="reduction" model.bind="data" checked.bind="activeSim">
+          ${reduction}%</md-radio>
+      </div>
     </div>
-    <div class="col s6">
-      <span style="display: inline-block;">
-        Reduktion der Sozialen Kontakte um:
-      </span>
-      <md-radio repeat.for="[reduction, data] of sim" name="reduction" model.bind="data" checked.bind="activeSim">
-        ${reduction}%</md-radio>
-      <br>
-      <span style="color: Tomato">
-        <i class="fas fa-coffin-cross"></i>: ${death_factor} Potentielle Tote bei Patienten ohne Intensivbett
-      </span>
-      <br>
-      <i class="fas fa-procedures"></i>: ${hospital_factor} Intensiv Betten (
-      <span style="color: Tomato">
-        <i class="fas fa-procedures"></i> Fehlend,
-      </span>
-      <span style="color: BLack">
-        <i class="fad fa-procedures"
-          style="--fa-secondary-opacity: 1.0; --fa-primary-color: Black; --fa-secondary-color: Tomato;"></i> Belegt,
-      </span>
-      <span>
-        <i class="fad fa-procedures"
-          style="--fa-secondary-opacity: 0; --fa-primary-color: Black; --fa-secondary-color: Tomato;"></i> Freie
-      </span>)
-      <br>
-      <span>
-        <i class="fal fa-male"></i> ${people_factor} Menschen (
-      </span>
-      <span style="color: Tomato">
-        <i class="fas fa-male"></i> Kritisch
-      </span>
-      <span style="color: Orange">
-        <i class="fas fa-male"></i> Infiziert
-      </span>
-      <span style="color: Green">
-        <i class="fas fa-male"></i> Erholt
-      </span>)
-    </div>
+    <hr>
   </div>
 
-  <div class="row">
-    <div class="col s12">
-      <div class="row" repeat.for="[month, data] of activeSim">
-        <div class="col s1">
-          <span style="font-size: larger; font-weight: 800">${month}</span>
-        </div>
-        <div class="col s3">
-          <span repeat.for="i of computeFreeBeds(month, activeSim)">
-            <i class="fad fa-procedures"
-              style="--fa-secondary-opacity: 0; --fa-primary-color: Black; --fa-secondary-color: Tomato;"></i>
-          </span>
-          <br if.bind="computeFreeBeds(month, activeSim)">
-          <span repeat.for="i of computeUsedBeds(month, activeSim)" style="color: Black">
-            <i class="fad fa-procedures"
-              style="--fa-secondary-opacity: 1.0; --fa-primary-color: Black; --fa-secondary-color: Tomato;"></i>
-          </span>
-          <br>
-          <span repeat.for="i of computeMissingBeds(month, activeSim)" style="color: Tomato; vertical-align: bottom">
-            <i class="fas fa-procedures"></i>
-          </span>
-          <br>
-          <span repeat.for="i of computeDeathRate(month, activeSim)" style="color: Tomato">
-            <i class="fas fa-coffin-cross"></i>
-          </span>
-        </div>
-        <div class="col s8">
-          <span repeat.for="i of computeCritical(month, activeSim)" style="color: Tomato">
-            <i class="fas fa-male"></i>
-          </span>
-          <!-- <span repeat.for="i of computeCovered('März', activeSim)" style="color: Tomato">
+  <div class="content">
+    <div class="row">
+      <div class="col s12">
+        <div class="row" repeat.for="[month, data] of activeSim">
+          <div class="col s1">
+            <span style="font-size: larger; font-weight: 800">${month}</span>
+          </div>
+          <div class="col s3">
+            <span repeat.for="i of computeFreeBeds(month, activeSim)">
+              <i class="fad fa-procedures"
+                style="--fa-secondary-opacity: 0; --fa-primary-color: Black; --fa-secondary-color: Tomato;"></i>
+            </span>
+            <br if.bind="computeFreeBeds(month, activeSim)">
+            <span repeat.for="i of computeUsedBeds(month, activeSim)" style="color: Black">
+              <i class="fad fa-procedures"
+                style="--fa-secondary-opacity: 1.0; --fa-primary-color: Black; --fa-secondary-color: Tomato;"></i>
+            </span>
+            <br>
+            <span repeat.for="i of computeMissingBeds(month, activeSim)" style="color: Tomato; vertical-align: bottom">
+              <i class="fas fa-procedures"></i>
+            </span>
+            <br>
+            <span repeat.for="i of computeDeathRate(month, activeSim)" style="color: Tomato">
+              <i class="fas fa-coffin-cross"></i>
+            </span>
+          </div>
+          <div class="col s8">
+            <span repeat.for="i of computeCritical(month, activeSim)" style="color: Tomato">
+              <i class="fas fa-male"></i>
+            </span>
+            <!-- <span repeat.for="i of computeCovered('März', activeSim)" style="color: Tomato">
               <i class="fas fa-procedures"></i>
             </span>
             <span repeat.for="i of computeFree('März', activeSim)" style="color: Black">
               <i class="fas fa-procedures"></i>
             </span> -->
-          <span repeat.for="i of computeInfected(month, activeSim)" style="color: Orange">
-            <i class="fas fa-male"></i>
-          </span>
-          <span repeat.for="i of computeRecovered(month, activeSim)" style="color: Green">
-            <i class="fas fa-male"></i>
-          </span>
-          <span repeat.for="i of computeHealthy(month, activeSim)">
-            <i class="fal fa-male"></i>
-          </span>
+            <span repeat.for="i of computeInfected(month, activeSim)" style="color: Orange">
+              <i class="fas fa-male"></i>
+            </span>
+            <span repeat.for="i of computeRecovered(month, activeSim)" style="color: Green">
+              <i class="fas fa-male"></i>
+            </span>
+            <span repeat.for="i of computeHealthy(month, activeSim)">
+              <i class="fal fa-male"></i>
+            </span>
+          </div>
         </div>
       </div>
     </div>
