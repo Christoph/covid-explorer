@@ -1,4 +1,4 @@
-import { computedFrom } from 'aurelia-framework';
+import { observable } from 'aurelia-framework';
 
 export class covid {
   // https://www.sozialministerium.at/Informationen-zum-Coronavirus/Coronavirus---Haeufig-gestellte-Fragen/Coronavirus---H%C3%A4ufig-gestellte-Fragen---Ma%C3%9Fnahmen-in-Oesterreich.html
@@ -7,6 +7,7 @@ export class covid {
 
   hospital_factor = 100
   person_factor = 5000
+  show_empty = true
 
   person_symbols = Math.ceil(this.people / this.person_factor)
 
@@ -15,6 +16,8 @@ export class covid {
 
   rangeValue = 10;
   percent = 0;
+
+  @observable mode = "context"
 
   sim = new Map();
   reductions;
@@ -167,6 +170,19 @@ export class covid {
 
   compute_Risk(month, activeSim) {
     return 9 * this.activeSim.get(month).infected / this.people
+  }
+
+  modeChanged(new_v, old_v) {
+    if (new_v == "equal") {
+      this.person_factor = 100
+      this.show_empty = false;
+      this.onChangeBeds()
+    }
+    else {
+      this.person_factor = 5000
+      this.show_empty = true;
+      this.onChangeBeds()
+    }
   }
 
   onChange() {
