@@ -105,24 +105,30 @@
         <i class="fal fa-procedures"></i> Freie Betten
       </span>
     </div>
-  </div>
-  <div class="col s6">
-
-  </div>
-
-  <!--
-  <h1>IDEA 3 - Relative Rates</h1>
-  <div class="row">
-    <div class="row">
-      <div class="col s12">
-        <i class="fas fa-male"></i>: ${person_factor} Menschen,
-        <i class="fas fa-procedures"></i>: ${person_factor / 2} Intensiv Betten
+    <div class="col s6">
+      <div style="display: inline-block" repeat.for="[month, data] of activeSim">
+        <span>${month}</span>
+        <br>
+        <span repeat.for="i of computeCritical(month, activeSim)" style="color: Tomato">
+          <i class="fas fa-male"></i>
+        </span>
+        <!-- <span repeat.for="i of computeCovered('März', activeSim)" style="color: Tomato">
+          <i class="fas fa-procedures"></i>
+        </span>
+        <span repeat.for="i of computeFree('März', activeSim)" style="color: Black">
+          <i class="fas fa-procedures"></i>
+        </span> -->
+        <span repeat.for="i of computeInfected(month, activeSim)" style="color: Orange">
+          <i class="fas fa-male"></i>
+        </span>
+        <span repeat.for="i of computeRecovered(month, activeSim)" style="color: Green">
+          <i class="fas fa-male"></i>
+        </span>
+        <span repeat.for="i of computeHealthy(month, activeSim)">
+          <i class="fal fa-male"></i>
+        </span>
       </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col m4">
-      <div class="row">
+      <!-- <div class="row">
         <div class="col s4">
           <h3>März</h3>
         </div>
@@ -153,131 +159,7 @@
             Erholte Menschen: ${activeSim.März.recovered}
           </span>
         </div>
-      </div>
-      <span repeat.for="i of computeCritical('März', activeSim)" style="color: Tomato">
-        <i class="fas fa-male"></i>
-      </span>
-      <span repeat.for="i of computeCovered('März', activeSim)" style="color: Tomato">
-        <i class="fas fa-procedures"></i>
-      </span>
-      <span repeat.for="i of computeFree('März', activeSim)" style="color: Black">
-        <i class="fas fa-procedures"></i>
-      </span>
-      <span repeat.for="i of computeInfected('März', activeSim)" style="color: Orange">
-        <i class="fas fa-male"></i>
-      </span>
-      <span repeat.for="i of computeRecovered('März', activeSim)" style="color: Green">
-        <i class="fas fa-male"></i>
-      </span>
-      <span repeat.for="i of computeHealthy('März', activeSim)">
-        <i class="fal fa-male"></i>
-      </span>
+      </div> -->
     </div>
-    <div class="col m4">
-      <div class="row">
-        <div class="col s4">
-          <h3>April</h3>
-        </div>
-        <div class="col s8">
-          <span style="color: Tomato; font-weight: 800">
-            <i class="fas fa-male"></i> Kritische Patienten ohne Bett: ${computeFreeNumber('April', activeSim)}
-          </span>
-          <br>
-          <span style="color: Tomato">
-            <i class="fas fa-procedures"></i> Belegte Intensiv Betten: ${computeCoveredNumber('April', activeSim)}
-          </span>
-          <br>
-          <span style="color: Black">
-            <i class="fas fa-procedures"></i> Freie Intensiv Betten: ${computeFreeNumber('April', activeSim)}
-          </span>
-          <br>
-          <span style="color: Orange">
-            <i class="fas fa-male"></i> Infizierte Patienten: ${activeSim.April.infected - activeSim.April.critical}
-          </span>
-          <br>
-          <span>
-            <i class="fal fa-male"></i> Nicht Betroffene Menschen: ${people - activeSim.April.infected -
-            activeSim.April.recovered}
-          </span>
-          <br>
-          <span style="color: Green">
-            <i class="fas fa-male"></i>
-            Erholte Menschen: ${activeSim.April.recovered}
-          </span>
-        </div>
-      </div>
-      <span repeat.for="i of computeCritical('April', activeSim)" style="color: Tomato">
-        <i class="fas fa-male"></i>
-      </span>
-      <span repeat.for="i of computeCovered('April', activeSim)" style="color: Tomato">
-        <i class="fas fa-procedures"></i>
-      </span>
-      <span repeat.for="i of computeFree('April', activeSim)" style="color: Black">
-        <i class="fas fa-procedures"></i>
-      </span>
-      <span repeat.for="i of computeInfected('April', activeSim)" style="color: Orange">
-        <i class="fas fa-male"></i>
-      </span>
-      <span repeat.for="i of computeRecovered('April', activeSim)" style="color: Green">
-        <i class="fas fa-male"></i>
-      </span>
-      <span repeat.for="i of computeHealthy('April', activeSim)">
-        <i class="fal fa-male"></i>
-      </span>
-
-    </div>
-    <div class="col m4">
-      <div class="row">
-        <div class="col s4">
-          <h3>Mai</h3>
-        </div>
-        <div class="col s8">
-          <span style="color: Tomato; font-weight: 800">
-            <i class="fas fa-male"></i> Kritische Patienten ohne Bett: ${computeFreeNumber('Mai', activeSim)}
-          </span>
-          <br>
-          <span style="color: Tomato">
-            <i class="fas fa-procedures"></i> Belegte Intensiv Betten: ${computeCoveredNumber('Mai', activeSim)}
-          </span>
-          <br>
-          <span style="color: Black">
-            <i class="fas fa-procedures"></i> Freie Intensiv Betten: ${computeFreeNumber('Mai', activeSim)}
-          </span>
-          <br>
-          <span style="color: Orange">
-            <i class="fas fa-male"></i> Infizierte Patienten: ${activeSim.Mai.infected - activeSim.Mai.critical}
-          </span>
-          <br>
-          <span>
-            <i class="fal fa-male"></i> Nicht Betroffene Menschen: ${people - activeSim.Mai.infected -
-            activeSim.Mai.recovered}
-          </span>
-          <br>
-          <span style="color: Green">
-            <i class="fas fa-male"></i>
-            Erholte Menschen: ${activeSim.Mai.recovered}
-          </span>
-        </div>
-      </div>
-      <span repeat.for="i of computeCritical('Mai', activeSim)" style="color: Tomato">
-        <i class="fas fa-male"></i>
-      </span>
-      <span repeat.for="i of computeCovered('Mai', activeSim)" style="color: Tomato">
-        <i class="fas fa-procedures"></i>
-      </span>
-      <span repeat.for="i of computeFree('Mai', activeSim)" style="color: Black">
-        <i class="fas fa-procedures"></i>
-      </span>
-      <span repeat.for="i of computeInfected('Mai', activeSim)" style="color: Orange">
-        <i class="fas fa-male"></i>
-      </span>
-      <span repeat.for="i of computeRecovered('Mai', activeSim)" style="color: Green">
-        <i class="fas fa-male"></i>
-      </span>
-      <span repeat.for="i of computeHealthy('Mai', activeSim)">
-        <i class="fal fa-male"></i>
-      </span>
-    </div>
-  </div> -->
-
+  </div>
 </template>

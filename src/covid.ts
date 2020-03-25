@@ -6,7 +6,7 @@ export class covid {
   people = 1910497
 
   hospital_factor = 1000
-  person_factor = 2000
+  person_factor = 5000
 
   person_symbols = Math.ceil(this.people / this.person_factor)
 
@@ -91,7 +91,7 @@ export class covid {
 
 
   computeCritical(month, activeSim) {
-    return Math.ceil(Math.max(0, this.activeSim.get(month).critical + this.activeSim.get(month).hospital - this.available_beds) / this.person_factor)
+    return Math.ceil(this.activeSim.get(month).critical / this.person_factor)
   }
 
   computeCriticalNumber(month, activeSim) {
