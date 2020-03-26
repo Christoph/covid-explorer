@@ -37,35 +37,35 @@
         <br>
         <md-radio name="myOption" value="context" checked.bind="mode">Context</md-radio>
       </div>
-      <div style="float: right; font-size: smaller;">
+      <div style="float: right; font-size: smaller; margin-right: 5px">
         <span style="color: Tomato">
-          <i class="fas fa-coffin-cross"></i>: ${death_factor} Potentielle Tote bei PatientInnen ohne Intensivbett
+          <i class="fas fa-coffin-cross"></i> ${death_factor} Potentielle Tote
         </span>
         <br>
-        <i class="fas fa-procedures"></i>: ${hospital_factor} Intensivbetten (
+        <i class="fas fa-procedures"></i> ${hospital_factor} Intensivbetten (
         <span style="color: Tomato">
-          <i class="fas fa-procedures"></i> Fehlend,
+          <i class="fas fa-procedures"></i> fehlend,
         </span>
         <span style="color: BLack">
           <i class="fad fa-procedures"
-            style="--fa-secondary-opacity: 1.0; --fa-primary-color: Black; --fa-secondary-color: Tomato;"></i> Belegt,
+            style="--fa-secondary-opacity: 1.0; --fa-primary-color: Black; --fa-secondary-color: Tomato;"></i> belegt,
         </span>
         <span>
           <i class="fad fa-procedures"
-            style="--fa-secondary-opacity: 0; --fa-primary-color: Black; --fa-secondary-color: Tomato;"></i> Frei
+            style="--fa-secondary-opacity: 0; --fa-primary-color: Black; --fa-secondary-color: Tomato;"></i> frei
         </span>)
         <br>
         <span>
           <i class="fal fa-male"></i> ${person_factor} Menschen (
         </span>
         <span style="color: Tomato">
-          <i class="fas fa-male"></i> Kritisch
+          <i class="fas fa-male"></i> kritisch
         </span>
         <span style="color: Orange">
-          <i class="fas fa-male"></i> Infiziert
+          <i class="fas fa-male"></i> infiziert
         </span>
         <span style="color: Green">
-          <i class="fas fa-male"></i> Erholt
+          <i class="fas fa-male"></i> erholt
         </span>)
       </div>
     </div>
@@ -113,7 +113,7 @@
         </div>
         <div class="row" style="margin: 0px; height: 40px">
           <div style="display: inline-block;">
-            Sterberate von PatientInnen (Prozent):
+            Sterberate von Infizierten (Prozent):
           </div>
           <div style="display: inline-block">
             <div>

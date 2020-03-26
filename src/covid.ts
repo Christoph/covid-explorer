@@ -157,9 +157,9 @@ export class covid {
   }
 
   computeDeathRate(month, activeSim) {
-    let missing_beds = Math.max(0, this.activeSim.get(month).critical + this.activeSim.get(month).hospital - this.available_beds)
+    // let missing_beds = Math.max(0, this.activeSim.get(month).critical + this.activeSim.get(month).hospital - this.available_beds)
 
-    return Math.ceil(missing_beds * (this.death_rate / 100) / this.death_factor)
+    return Math.ceil(this.activeSim.get(month).infected * (this.death_rate / 100) / this.death_factor)
   }
 
   computeMissingBeds(month, activeSim) {
