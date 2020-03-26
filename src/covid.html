@@ -91,6 +91,8 @@
           md-tooltip="position: bottom; html.bind: mittelTooltip;">Mittel</md-radio>
         <md-radio name="Option" value="40" checked.bind="reduction"
           md-tooltip="position: bottom; html.bind: starkTooltip;">Stark</md-radio>
+        <br>
+        <md-switch label-on="relative" label-off="absolute" checked.bind="show_comparison"></md-switch>
       </div>
       <div class="col s6" style="margin: 0px">
         <div class="row" style="margin: 0px; height: 45px">
@@ -142,40 +144,60 @@
               <i class="fad fa-procedures"
                 style="--fa-secondary-opacity: 0; --fa-primary-color: Black; --fa-secondary-color: Tomato;"></i>
             </span>
+            <span if.bind="show_comparison" repeat.for="i of computeBaseFreeBeds(month, baseSim, activeSim)"
+              style="color: rgba(0, 0, 0, 0.200)">
+              <i class="fad fa-procedures"
+                style="--fa-secondary-opacity: 0; --fa-primary-color: Black; --fa-secondary-color: Tomato;"></i>
+            </span>
             <br if.bind="computeFreeBeds(month, activeSim)">
             <span repeat.for="i of computeUsedBeds(month, activeSim)" style="color: Black">
               <i class="fad fa-procedures"
                 style="--fa-secondary-opacity: 1.0; --fa-primary-color: Black; --fa-secondary-color: Tomato;"></i>
             </span>
+            <span if.bind="show_comparison" repeat.for="i of computeBaseUsedBeds(month, baseSim, activeSim)"
+              style="color: Black">
+              <i class="fad fa-procedures" style="--fa-primary-opacity: 0.2; --fa-secondary-opacity: 0.2; --fa-primary-color: Black;
+                --fa-secondary-color: Tomato;"></i>
+            </span>
             <br>
             <span repeat.for="i of computeMissingBeds(month, activeSim)" style="color: Tomato; vertical-align: bottom">
               <i class="fas fa-procedures"></i>
             </span>
-            <br>
-            <span if.bind="show_emtpy" repeat.for="i of computeDeathRate(month, activeSim)" style="color: Tomato">
-              <i class="fas fa-coffin-cross"></i>
+            <span if.bind="show_comparison" repeat.for="i of computeBaseMissingBeds(month, baseSim, activeSim)"
+              style="color: rgba(255, 99, 71, 0.200)">
+              <i class="fas fa-procedures"></i>
             </span>
           </div>
           <div class="col s8">
-            <span if.bind="!show_empty" repeat.for="i of computeDeathRate(month, activeSim)" style="color: Tomato">
+            <span repeat.for="i of computeDeathRate(month, activeSim)" style="color: Tomato">
               <i class="fas fa-coffin-cross"></i>
             </span>
+            <span if.bind="show_comparison" repeat.for="i of computeBaseDeathRate(month, baseSim, activeSim)"
+              style="color: hsla(9, 100%, 64%, 0.200)">
+              <i class="fas fa-coffin-cross"></i>
+            </span>
+            <br>
             <span repeat.for="i of computeCritical(month, activeSim)" style="color: Tomato">
               <i class="fas fa-male"></i>
             </span>
-            <!-- <span repeat.for="i of computeCovered('März', activeSim)" style="color: Tomato">
-              <i class="fas fa-procedures"></i>
+            <span if.bind="show_comparison" repeat.for="i of computeBaseCritical(month, baseSim, activeSim)"
+              style="color: hsla(9, 100%, 64%, 0.200)">
+              <i class="fas fa-male"></i>
             </span>
-            <span repeat.for="i of computeFree('März', activeSim)" style="color: Black">
-              <i class="fas fa-procedures"></i>
-            </span> -->
+            <br>
             <span repeat.for="i of computeInfected(month, activeSim)" style="color: Orange">
               <i class="fas fa-male"></i>
             </span>
+            <span if.bind="show_comparison" repeat.for="i of computeBaseInfected(month, baseSim, activeSim)"
+              style="color: rgba(255, 166, 0, 0.200)">
+              <i class="fas fa-male"></i>
+            </span>
+            <br>
             <span repeat.for="i of computeRecovered(month, activeSim)" style="color: Green">
               <i class="fas fa-male"></i>
             </span>
-            <span if.bind="show_empty" repeat.for="i of computeHealthy(month, activeSim)" style="color: #CDCDCD">
+            <span if.bind="show_comparison" repeat.for="i of computeBaseRecovered(month, baseSim, activeSim)"
+              style="color: rgba(0, 128, 0, 0.200)">
               <i class="fas fa-male"></i>
             </span>
           </div>
