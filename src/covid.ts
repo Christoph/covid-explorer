@@ -11,13 +11,17 @@ export class covid {
 
   person_symbols = Math.ceil(this.people / this.person_factor)
 
+  death_rate = 2.6
+  death_factor = 100
+
   tests_per_week = 23000
   tests_month = this.tests_per_week * 4
 
   rangeValue = 10;
   percent = 0;
 
-  @observable mode = "context"
+  @observable mode = "equal"
+  @observable reduction = "10"
 
   sim = new Map();
   reductions;
@@ -77,41 +81,81 @@ export class covid {
       recovered: 820
     });
 
-    let t60 = new Map();
-    t60.set('März', {
-      infected: 20862,
-      critical: 422,
-      hospital: 1620,
-      recovered: 543
+    let t20 = new Map();
+    t20.set('März', {
+      infected: 27259,
+      critical: 467,
+      hospital: 1744,
+      recovered: 548
     });
-    t60.set('April', {
-      infected: 14166,
-      critical: 350,
-      hospital: 1154,
-      recovered: 1233,
+    t20.set('April', {
+      infected: 66502,
+      critical: 1184,
+      hospital: 4932,
+      recovered: 3154,
     });
-    t60.set('Mai', {
-      infected: 2907,
-      critical: 26,
-      hospital: 171,
-      recovered: 242
+    t20.set('Mai', {
+      infected: 78400,
+      critical: 1431,
+      hospital: 6201,
+      recovered: 3835
     });
-    t60.set('Juni', {
-      infected: 143,
-      critical: 0,
-      hospital: 32,
-      recovered: 30
+    t20.set('Juni', {
+      infected: 85319,
+      critical: 1500,
+      hospital: 6505,
+      recovered: 4326
+    });
+
+    let t40 = new Map();
+    t40.set('März', {
+      infected: 23320,
+      critical: 393,
+      hospital: 1571,
+      recovered: 557
+    });
+    t40.set('April', {
+      infected: 24307,
+      critical: 405,
+      hospital: 1986,
+      recovered: 1757,
+    });
+    t40.set('Mai', {
+      infected: 5800,
+      critical: 71,
+      hospital: 428,
+      recovered: 472
+    });
+    t40.set('Juni', {
+      infected: 938,
+      critical: 27,
+      hospital: 83,
+      recovered: 85
     });
 
     this.sim.set("10", t10)
+    this.sim.set("20", t20)
     this.sim.set("30", t30)
-    this.sim.set("60", t60)
+    this.sim.set("40", t40)
 
     this.activeSim = this.sim.get("10")
   }
 
-  death_rate = 2.6
-  death_factor = 100
+  reductionToText(reduction) {
+    if (reduction == "10") {
+      return "Keine"
+    }
+    if (reduction == "20") {
+      return "Leicht"
+    }
+    if (reduction == "30") {
+      return "Mittel"
+    }
+    if (reduction == "40") {
+      return "Stark"
+    }
+  }
+
   computeDeathRate(month, activeSim) {
     let missing_beds = Math.max(0, this.activeSim.get(month).critical + this.activeSim.get(month).hospital - this.available_beds)
 
@@ -185,6 +229,10 @@ export class covid {
     }
   }
 
+  reductionChanged(new_v, old_v) {
+    if (this.sim) this.activeSim = this.sim.get(new_v)
+  }
+
   onChange() {
     this.activeSim = this.activeSim
   }
@@ -193,4 +241,20 @@ export class covid {
     this.activeSim = null
     this.activeSim = temp
   }
+
+  leichtTooltip = `
+  Schulen sind geschlossen.
+  <br>
+  Keine Veranstaltungen.
+  `;
+
+  mittelTooltip = `
+  Geschäfte sind geschlossen.
+  <br>
+  Keine Aufenthalte im öffentlichen Raum.
+  `;
+
+  starkTooltip = `
+  Menschen bleiben so gut wie möglich zuhause.
+  `;
 }
