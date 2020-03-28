@@ -294,4 +294,13 @@ export class covid {
   starkTooltip = `
   Menschen bleiben so gut wie möglich zuhause.
   `;
+
+  aboutTooltip = `
+  Diese Visualisierung basiert auf einer Simulation der dwh GmbH.
+  <br>
+  <br>
+  Sie wurde erstellt von Christoph Kralj (<a href="https://christoph.github.io/" target="_blank">christoph.github.io</a>), und ist eine Zusammenarbeit
+  der dwh GmbH (<a href="http://www.dwh.at/" target="_blank">dwh.at</a>) und der Data Science Plattform der Uni Wien
+  (<a href="https://datascience.univie.ac.at/" target="_blank">datascience.univie.ac.at</a>).
+  `;
 }
