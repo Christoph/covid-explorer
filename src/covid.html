@@ -147,65 +147,136 @@
             <span style="font-size: x-large; font-weight: 800;">${month}</span>
           </div>
           <div class="col s3">
-            <span repeat.for="i of computeFreeBeds(month, activeSim)">
-              <i class="fad fa-procedures"
-                style="--fa-secondary-opacity: 0; --fa-primary-color: Black; --fa-secondary-color: Tomato;"></i>
+            <span class="icon-hover">
+              <span repeat.for="i of computeFreeBeds(month, activeSim)">
+                <i class="fad fa-procedures"
+                  style="--fa-secondary-opacity: 0; --fa-primary-color: Black; --fa-secondary-color: Tomato;"></i>
+              </span>
+              <span if.bind="show_comparison" repeat.for="i of computeBaseFreeBeds(month, baseSim, activeSim)"
+                style="color: rgba(0, 0, 0, 0.200)">
+                <i class="fad fa-procedures"
+                  style="--fa-secondary-opacity: 0; --fa-primary-color: Black; --fa-secondary-color: Tomato;"></i>
+              </span>
             </span>
-            <span if.bind="show_comparison" repeat.for="i of computeBaseFreeBeds(month, baseSim, activeSim)"
-              style="color: rgba(0, 0, 0, 0.200)">
-              <i class="fad fa-procedures"
-                style="--fa-secondary-opacity: 0; --fa-primary-color: Black; --fa-secondary-color: Tomato;"></i>
+            <span class="icon-text">
+              <span style="color: Black">
+                ${computeFreeBeds(month, activeSim)},
+              </span>
+              <span style="color: rgba(0, 0, 0, 0.200)">
+                ${computeBaseFreeBeds(month, baseSim, activeSim)}
+              </span>
             </span>
             <br if.bind="computeFreeBeds(month, activeSim)">
-            <span repeat.for="i of computeUsedBeds(month, activeSim)" style="color: Black">
-              <i class="fad fa-procedures"
-                style="--fa-secondary-opacity: 1.0; --fa-primary-color: Black; --fa-secondary-color: Tomato;"></i>
-            </span>
-            <span if.bind="show_comparison" repeat.for="i of computeBaseUsedBeds(month, baseSim, activeSim)"
-              style="color: Black">
-              <i class="fad fa-procedures" style="--fa-primary-opacity: 0.2; --fa-secondary-opacity: 0.2; --fa-primary-color: Black;
+            <span class="icon-hover">
+              <span repeat.for="i of computeUsedBeds(month, activeSim)" style="color: Black">
+                <i class="fad fa-procedures"
+                  style="--fa-secondary-opacity: 1.0; --fa-primary-color: Black; --fa-secondary-color: Tomato;"></i>
+              </span>
+              <span if.bind="show_comparison" repeat.for="i of computeBaseUsedBeds(month, baseSim, activeSim)"
+                style="color: Black">
+                <i class="fad fa-procedures" style="--fa-primary-opacity: 0.2; --fa-secondary-opacity: 0.2; --fa-primary-color: Black;
                 --fa-secondary-color: Tomato;"></i>
+              </span>
+            </span>
+            <span class="icon-text">
+              <span style="color: Black">
+                ${computeUsedBeds(month, activeSim)},
+              </span>
+              <span style="color: rgba(0, 0, 0, 0.200)">
+                ${computeBaseUsedBeds(month, baseSim, activeSim)}
+              </span>
             </span>
             <br>
-            <span repeat.for="i of computeMissingBeds(month, activeSim)" style="color: Tomato; vertical-align: bottom">
-              <i class="fas fa-procedures"></i>
+            <span class="icon-hover">
+              <span repeat.for="i of computeMissingBeds(month, activeSim)"
+                style="color: Tomato; vertical-align: bottom">
+                <i class="fas fa-procedures"></i>
+              </span>
+              <span if.bind="show_comparison" repeat.for="i of computeBaseMissingBeds(month, baseSim, activeSim)"
+                style="color: rgba(255, 99, 71, 0.200)">
+                <i class="fas fa-procedures"></i>
+              </span>
             </span>
-            <span if.bind="show_comparison" repeat.for="i of computeBaseMissingBeds(month, baseSim, activeSim)"
-              style="color: rgba(255, 99, 71, 0.200)">
-              <i class="fas fa-procedures"></i>
+            <span class="icon-text">
+              <span style="color: Tomato">
+                ${computeMissingBeds(month, activeSim)},
+              </span>
+              <span style="color: rgba(255, 99, 71, 0.200)">
+                ${computeBaseMissingBeds(month, baseSim, activeSim)}
+              </span>
             </span>
           </div>
           <div class="col s8">
-            <span repeat.for="i of computeDeathRate(month, activeSim)" style="color: Tomato">
-              <i class="fas fa-coffin-cross"></i>
+            <span class="icon-hover">
+              <span repeat.for="i of computeDeathRate(month, activeSim)" style="color: Tomato">
+                <i class="fas fa-coffin-cross"></i>
+              </span>
+              <span if.bind="show_comparison" repeat.for="i of computeBaseDeathRate(month, baseSim, activeSim)"
+                style="color: hsla(9, 100%, 64%, 0.200)">
+                <i class="fas fa-coffin-cross"></i>
+              </span>
             </span>
-            <span if.bind="show_comparison" repeat.for="i of computeBaseDeathRate(month, baseSim, activeSim)"
-              style="color: hsla(9, 100%, 64%, 0.200)">
-              <i class="fas fa-coffin-cross"></i>
-            </span>
-            <br>
-            <span repeat.for="i of computeCritical(month, activeSim)" style="color: Tomato">
-              <i class="fas fa-male"></i>
-            </span>
-            <span if.bind="show_comparison" repeat.for="i of computeBaseCritical(month, baseSim, activeSim)"
-              style="color: hsla(9, 100%, 64%, 0.200)">
-              <i class="fas fa-male"></i>
-            </span>
-            <br>
-            <span repeat.for="i of computeInfected(month, activeSim)" style="color: Orange">
-              <i class="fas fa-male"></i>
-            </span>
-            <span if.bind="show_comparison" repeat.for="i of computeBaseInfected(month, baseSim, activeSim)"
-              style="color: rgba(255, 166, 0, 0.200)">
-              <i class="fas fa-male"></i>
+            <span class="icon-text">
+              <span style="color: tomato">
+                ${computeDeathRate(month, activeSim)},
+              </span>
+              <span style="color: hsla(9, 100%, 64%, 0.200)">
+                ${computeBaseDeathRate(month, baseSim, activeSim)}
+              </span>
             </span>
             <br>
-            <span repeat.for="i of computeRecovered(month, activeSim)" style="color: Green">
-              <i class="fas fa-male"></i>
+            <span class="icon-hover">
+              <span repeat.for="i of computeCritical(month, activeSim)" style="color: Tomato">
+                <i class="fas fa-male"></i>
+              </span>
+              <span if.bind="show_comparison" repeat.for="i of computeBaseCritical(month, baseSim, activeSim)"
+                style="color: hsla(9, 100%, 64%, 0.200)">
+                <i class="fas fa-male"></i>
+              </span>
             </span>
-            <span if.bind="show_comparison" repeat.for="i of computeBaseRecovered(month, baseSim, activeSim)"
-              style="color: rgba(0, 128, 0, 0.200)">
-              <i class="fas fa-male"></i>
+            <span class="icon-text">
+              <span style="color: tomato">
+                ${computeCritical(month, activeSim)},
+              </span>
+              <span style="color: hsla(9, 100%, 64%, 0.200)">
+                ${computeBaseCritical(month, baseSim, activeSim)}
+              </span>
+            </span>
+            <br>
+            <span class="icon-hover">
+              <span repeat.for="i of computeInfected(month, activeSim)" style="color: Orange">
+                <i class="fas fa-male"></i>
+              </span>
+              <span if.bind="show_comparison" repeat.for="i of computeBaseInfected(month, baseSim, activeSim)"
+                style="color: rgba(255, 166, 0, 0.200)">
+                <i class="fas fa-male"></i>
+              </span>
+            </span>
+            <span class="icon-text">
+              <span style="color: Orange">
+                ${computeInfected(month, activeSim)},
+              </span>
+              <span style="color: rgba(255, 166, 0, 0.200)">
+                ${computeBaseInfected(month, baseSim, activeSim)}
+              </span>
+            </span>
+            <br>
+            <span class="icon-hover">
+              <span repeat.for="i of computeRecovered(month, activeSim)" style="color: Green">
+                <i class="fas fa-male"></i>
+              </span>
+              <span if.bind="show_comparison" repeat.for="i of computeBaseRecovered(month, baseSim, activeSim)"
+                style="color: rgba(0, 128, 0, 0.200)">
+                <i class="fas fa-male"></i>
+              </span>
+            </span>
+            <span class="icon-text">
+              <span style="color: Green">
+                ${computeRecovered(month, activeSim)},
+              </span>
+              <span style="color: rgba(0, 128, 0, 0.200)">
+                ${computeBaseRecovered(month, baseSim, activeSim)}
+              </span>
             </span>
           </div>
         </div>

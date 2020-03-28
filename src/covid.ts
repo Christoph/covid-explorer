@@ -5,15 +5,14 @@ export class covid {
   available_beds = 696
   people = 1910497
 
+  person_factor = 100
   hospital_factor = 100
-  person_factor = 5000
+  death_factor = 100
+
   show_empty = true
   show_comparison = true
 
-  person_symbols = Math.round(this.people / this.person_factor)
-
   death_rate = 2.6
-  death_factor = 100
 
   tests_per_week = 23000
   tests_month = this.tests_per_week * 4
@@ -251,19 +250,6 @@ export class covid {
 
   compute_Risk(month, activeSim) {
     return 9 * this.activeSim.get(month).infected / this.people
-  }
-
-  modeChanged(new_v, old_v) {
-    if (new_v == "equal") {
-      this.person_factor = 100
-      this.show_empty = false;
-      this.onChangeBeds()
-    }
-    else {
-      this.person_factor = 5000
-      this.show_empty = true;
-      this.onChangeBeds()
-    }
   }
 
   reductionChanged(new_v, old_v) {

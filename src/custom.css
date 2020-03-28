@@ -51,6 +51,14 @@ md-radio>label>span {
   vertical-align: bottom;
 }
 
+.icon-hover:hover+.icon-text {
+  display: inline;
+}
+
+.icon-text {
+  display: none
+}
+
 @media screen and (min-width: 2161px) {
   .content-body {
     margin: 0 10px 0 10px;
