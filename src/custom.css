@@ -30,6 +30,11 @@
   -o-box-shadow: 0px 10px rgba(0, 0, 0, 0.6);
 }
 
+md-radio>label>span {
+  padding-left: 25px !important;
+  padding-right: 5px !important
+}
+
 .content {
   margin-top: 220px !important;
   /* background-color: #0b172a; */
