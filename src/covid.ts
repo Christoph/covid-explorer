@@ -31,12 +31,12 @@ export class covid {
 
   constructor() {
     let t10 = new Map();
-    t10.set('März', {
-      infected: 28435,
-      critical: 484,
-      hospital: 1939,
-      recovered: 537,
-    });
+    // t10.set('März', {
+    //   infected: 28435,
+    //   critical: 484,
+    //   hospital: 1939,
+    //   recovered: 537,
+    // });
     t10.set('April', {
       infected: 95934,
       critical: 2173,
@@ -57,12 +57,12 @@ export class covid {
     });
 
     let t30 = new Map();
-    t30.set('März', {
-      infected: 24328,
-      critical: 451,
-      hospital: 1533,
-      recovered: 539,
-    });
+    // t30.set('März', {
+    //   infected: 24328,
+    //   critical: 451,
+    //   hospital: 1533,
+    //   recovered: 539,
+    // });
     t30.set('April', {
       infected: 37637,
       critical: 718,
@@ -83,12 +83,12 @@ export class covid {
     });
 
     let t20 = new Map();
-    t20.set('März', {
-      infected: 27259,
-      critical: 467,
-      hospital: 1744,
-      recovered: 548
-    });
+    // t20.set('März', {
+    //   infected: 27259,
+    //   critical: 467,
+    //   hospital: 1744,
+    //   recovered: 548
+    // });
     t20.set('April', {
       infected: 66502,
       critical: 1184,
@@ -109,12 +109,12 @@ export class covid {
     });
 
     let t40 = new Map();
-    t40.set('März', {
-      infected: 23320,
-      critical: 393,
-      hospital: 1571,
-      recovered: 557
-    });
+    // t40.set('März', {
+    //   infected: 23320,
+    //   critical: 393,
+    //   hospital: 1571,
+    //   recovered: 557
+    // });
     t40.set('April', {
       infected: 24307,
       critical: 405,
