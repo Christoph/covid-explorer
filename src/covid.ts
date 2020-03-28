@@ -2,7 +2,7 @@ import { observable } from 'aurelia-framework';
 
 export class covid {
   // https://www.sozialministerium.at/Informationen-zum-Coronavirus/Coronavirus---Haeufig-gestellte-Fragen/Coronavirus---H%C3%A4ufig-gestellte-Fragen---Ma%C3%9Fnahmen-in-Oesterreich.html
-  available_beds = 2547
+  available_beds = 696
   people = 1910497
 
   hospital_factor = 100
@@ -296,7 +296,7 @@ export class covid {
   `;
 
   aboutTooltip = `
-  Diese Visualisierung basiert auf einer Simulation der dwh GmbH.
+  Diese Visualisierung basiert auf einer Simulation für Wien erstellt von der dwh GmbH.
   <br>
   <br>
   Sie wurde erstellt von Christoph Kralj (<a href="https://christoph.github.io/" target="_blank">christoph.github.io</a>), und ist eine Zusammenarbeit
