@@ -160,10 +160,10 @@
             </span>
             <span class="icon-text">
               <span style="color: Black">
-                ${computeFreeBeds(month, activeSim)},
+                ${computeFreeBedsNumber(month, activeSim)},
               </span>
               <span style="color: rgba(0, 0, 0, 0.200)">
-                ${computeBaseFreeBeds(month, baseSim, activeSim)}
+                ${computeBaseFreeBedsNumber(month, baseSim, activeSim)}
               </span>
             </span>
             <br if.bind="computeFreeBeds(month, activeSim)">
@@ -180,10 +180,10 @@
             </span>
             <span class="icon-text">
               <span style="color: Black">
-                ${computeUsedBeds(month, activeSim)},
+                ${computeUsedBedsNumber(month, activeSim)},
               </span>
               <span style="color: rgba(0, 0, 0, 0.200)">
-                ${computeBaseUsedBeds(month, baseSim, activeSim)}
+                ${computeBaseUsedBedsNumber(month, baseSim, activeSim)}
               </span>
             </span>
             <br>
@@ -199,10 +199,10 @@
             </span>
             <span class="icon-text">
               <span style="color: Tomato">
-                ${computeMissingBeds(month, activeSim)},
+                ${computeMissingBedsNumber(month, activeSim)},
               </span>
               <span style="color: rgba(255, 99, 71, 0.200)">
-                ${computeBaseMissingBeds(month, baseSim, activeSim)}
+                ${computeBaseMissingBedsNumber(month, baseSim, activeSim)}
               </span>
             </span>
           </div>
@@ -218,10 +218,10 @@
             </span>
             <span class="icon-text">
               <span style="color: tomato">
-                ${computeDeathRate(month, activeSim)},
+                ${computeDeathRateNumber(month, activeSim)},
               </span>
               <span style="color: hsla(9, 100%, 64%, 0.200)">
-                ${computeBaseDeathRate(month, baseSim, activeSim)}
+                ${computeBaseDeathRateNumber(month, baseSim, activeSim)}
               </span>
             </span>
             <br>
@@ -236,10 +236,10 @@
             </span>
             <span class="icon-text">
               <span style="color: tomato">
-                ${computeCritical(month, activeSim)},
+                ${computeCriticalNumber(month, activeSim)},
               </span>
               <span style="color: hsla(9, 100%, 64%, 0.200)">
-                ${computeBaseCritical(month, baseSim, activeSim)}
+                ${computeBaseCriticalNumber(month, baseSim, activeSim)}
               </span>
             </span>
             <br>
@@ -254,10 +254,10 @@
             </span>
             <span class="icon-text">
               <span style="color: Orange">
-                ${computeInfected(month, activeSim)},
+                ${computeInfectedNumber(month, activeSim)},
               </span>
               <span style="color: rgba(255, 166, 0, 0.200)">
-                ${computeBaseInfected(month, baseSim, activeSim)}
+                ${computeBaseInfectedNumber(month, baseSim, activeSim)}
               </span>
             </span>
             <br>
@@ -272,10 +272,10 @@
             </span>
             <span class="icon-text">
               <span style="color: Green">
-                ${computeRecovered(month, activeSim)},
+                ${computeRecoveredNumber(month, activeSim)},
               </span>
               <span style="color: rgba(0, 128, 0, 0.200)">
-                ${computeBaseRecovered(month, baseSim, activeSim)}
+                ${computeBaseRecoveredNumber(month, baseSim, activeSim)}
               </span>
             </span>
           </div>

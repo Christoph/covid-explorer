@@ -162,19 +162,38 @@ export class covid {
     return Math.round(activeSim.get(month).infected * (this.death_rate / 100) / this.death_factor)
   }
 
+  computeDeathRateNumber(month, activeSim) {
+    return Math.round(activeSim.get(month).infected * (this.death_rate / 100))
+  }
+
   computeBaseDeathRate(month, baseSim, activeSim) {
     let deaths = baseSim.get(month).infected - activeSim.get(month).infected
 
     return Math.round(deaths * (this.death_rate / 100) / this.death_factor)
   }
 
+  computeBaseDeathRateNumber(month, baseSim, activeSim) {
+    let deaths = baseSim.get(month).infected
+
+    return Math.round(deaths * (this.death_rate / 100))
+  }
+
   computeMissingBeds(month, activeSim) {
     return Math.round(Math.max(0, this.activeSim.get(month).critical + this.activeSim.get(month).hospital - this.available_beds) / this.hospital_factor)
+  }
+
+  computeMissingBedsNumber(month, activeSim) {
+    return Math.max(0, this.activeSim.get(month).critical + this.activeSim.get(month).hospital - this.available_beds)
   }
 
   computeBaseMissingBeds(month, baseSim, activeSim) {
     let missing = Math.max(0, baseSim.get(month).critical + baseSim.get(month).hospital - this.available_beds) - Math.max(0, activeSim.get(month).critical + activeSim.get(month).hospital - this.available_beds)
     return Math.round(missing / this.hospital_factor)
+  }
+
+  computeBaseMissingBedsNumber(month, baseSim, activeSim) {
+    let missing = Math.max(0, baseSim.get(month).critical + baseSim.get(month).hospital - this.available_beds)
+    return missing
   }
 
   computeUsedBeds(month, activeSim) {
@@ -196,8 +215,21 @@ export class covid {
     return Math.round((beds - this.computeUsedBedsNumber(month, activeSim)) / this.hospital_factor)
   }
 
+  computeBaseUsedBedsNumber(month, baseSim, activeSim) {
+    let beds = 0
+
+    if (baseSim.get(month).critical + baseSim.get(month).hospital > this.available_beds) beds = this.available_beds
+    else beds = baseSim.get(month).critical + baseSim.get(month).hospital
+
+    return (beds)
+  }
+
   computeFreeBeds(month, activeSim) {
     return Math.round(Math.max(0, this.available_beds - this.activeSim.get(month).critical - this.activeSim.get(month).hospital) / this.hospital_factor)
+  }
+
+  computeFreeBedsNumber(month, activeSim) {
+    return Math.max(0, this.available_beds - this.activeSim.get(month).critical - this.activeSim.get(month).hospital)
   }
 
   computeBaseFreeBeds(month, baseSim, activeSim) {
@@ -206,8 +238,18 @@ export class covid {
     return Math.round(free / this.hospital_factor)
   }
 
+  computeBaseFreeBedsNumber(month, baseSim, activeSim) {
+    let free = Math.max(0, this.available_beds - baseSim.get(month).critical - baseSim.get(month).hospital)
+
+    return free
+  }
+
   computeCritical(month, activeSim) {
     return Math.round(this.activeSim.get(month).critical / this.person_factor)
+  }
+
+  computeCriticalNumber(month, activeSim) {
+    return Math.round(this.activeSim.get(month).critical)
   }
 
   computeBaseCritical(month, baseSim, activeSim) {
@@ -215,12 +257,13 @@ export class covid {
     return Math.round(critical / this.person_factor)
   }
 
-  computeCriticalNumber(month, activeSim) {
-    return Math.max(0, this.activeSim.get(month).critical + this.activeSim.get(month).hospital - this.available_beds)
+  computeBaseCriticalNumber(month, baseSim, activeSim) {
+    let critical = baseSim.get(month).critical
+    return Math.round(critical)
   }
 
   computeFree(month, activeSim) {
-    return Math.round(Math.max(0, this.available_beds - this.activeSim.get(month).critical - this.activeSim.get(month).hospital) / (this.person_factor / 2))
+    return Math.round(Math.max(0, this.available_beds - this.activeSim.get(month).critical - this.activeSim.get(month).hospital) / (this.person_factor))
   }
 
   computeFreeNumber(month, activeSim) {
@@ -231,16 +274,26 @@ export class covid {
     return Math.round((this.activeSim.get(month).infected - this.activeSim.get(month).critical) / this.person_factor)
   }
 
+  computeInfectedNumber(month, activeSim) {
+    return (this.activeSim.get(month).infected - this.activeSim.get(month).critical)
+  }
+
   computeBaseInfected(month, baseSim, activeSim) {
     let infected = (baseSim.get(month).infected - baseSim.get(month).critical) - (activeSim.get(month).infected - activeSim.get(month).critical)
     return Math.round(infected / this.person_factor)
   }
 
-  computeHealthy(month, activeSim) {
-    return Math.round((this.people - this.activeSim.get(month).infected - this.activeSim.get(month).recovered) / this.person_factor)
+  computeBaseInfectedNumber(month, baseSim, activeSim) {
+    let infected = (baseSim.get(month).infected - baseSim.get(month).critical)
+    return infected
   }
+
   computeRecovered(month, activeSim) {
     return Math.round(this.activeSim.get(month).recovered / this.person_factor)
+  }
+
+  computeRecoveredNumber(month, activeSim) {
+    return this.activeSim.get(month).recovered
   }
 
   computeBaseRecovered(month, baseSim, activeSim) {
@@ -248,8 +301,9 @@ export class covid {
     return Math.round(recovered / this.person_factor)
   }
 
-  compute_Risk(month, activeSim) {
-    return 9 * this.activeSim.get(month).infected / this.people
+  computeBaseRecoveredNumber(month, baseSim, activeSim) {
+    let recovered = baseSim.get(month).recovered
+    return recovered
   }
 
   reductionChanged(new_v, old_v) {
